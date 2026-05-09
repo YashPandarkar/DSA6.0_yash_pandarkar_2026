@@ -1,5 +1,5 @@
 //Write a function which reads pointers of 2 different array as arguments, 
-//return the pointer of array which elements are sum of  two array element.
+//return the pointer of array which elements are sum of two array element.
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -16,9 +16,12 @@ int* sum(int* arr1,int size1,int* arr2,int size2){
         }
 
         return arr3;
+
     }else{
 
     printf("arrays are not same ");
+    free(arr3);
+     
     return NULL;
 
     }
