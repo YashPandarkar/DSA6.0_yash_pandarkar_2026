@@ -2,28 +2,23 @@
 
 #include<stdio.h>
 
-char* reverse(char* str1){
-
-    char* temp = str1;
-    char* start = str1;
-    char* end = str1;
+char* reverse(char* str){
 
     int count = 0;
+    char temp;
 
-    for(    ; *end != '\0'; end++){
-        count ++;
+    for(int i = 0; str[i] != '\0'; i++){
+
+        count++;
     }
+    for(int i = 0; i < count/2; i++){
 
-    end--;
+        temp = str[i];
+        str[i] = str[count - 1 - i]; 
+        str[count - 1 - i] = temp;
 
-    for(int i = 0; i < count/2; i++, start++, end--){
-
-       int temp = *start;
-       *start = *end;
-       *end = temp;
     }
-   
-    return (temp);
+    return str;
 }
 
 int main(){
