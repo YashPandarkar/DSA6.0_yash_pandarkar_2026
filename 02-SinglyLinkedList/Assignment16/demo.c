@@ -1,6 +1,11 @@
-/*"write a c program to Create a Singly linked list and revert it 
+/*"write a c program to Create a Singly linked list and Display it in reverse order (Use Normal Function)
 I/P  ---->   |_1_|_AA_|_100_| --> |_2_|_BB_|_200_| --> |_3_|_CC_|_300_| --> |_4_|_DD_|_NULL_| 
-O/P ---->    |_4_|_DD_|_100_| --> |_3_|_CC_|_200_| --> |_2_|_BB_|_300_| --> |_1_|_AA_|_NULL_|"*/ 
+O/P :
+------  
+4 DD
+3 CC
+2 BB
+1 AA"*/
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -38,30 +43,39 @@ sn* create(sn*head){
 
     return head;
 }
-sn* reverse(sn* head){
-
-    sn* r = NULL;
-    sn* p = head;
-    sn* q = NULL;
-
-    while(p != NULL){
-
-        q = p->next;
-        p->next = r;
-        r = p;
-        p = q;
-    }
-    return r;
-}
 void display(sn* head){
 
-    printf("\n=====strintg display======\n");
+    printf("\n=====linked display======\n");
     for(sn* p = head; p != NULL; p = p->next){
 
         printf("%d ",p->data);
     }
 }
+void reverseDisplay(sn* head){
 
+    int count = 0;
+    for(sn* p = head; p != NULL; p = p->next){
+
+        count++;
+    }
+    printf("\n=====reverse linked display======\n");
+
+    sn* p = NULL;
+    for(int i = 1;   ; i++){
+
+        p = head;
+        for(int i = 1; i <= count && p != NULL; i++, p = p->next){
+
+            if(i == count){
+                printf(" %d",p->data);
+            }
+        } 
+        count--;
+        if(count == 0){
+            break;
+        }
+    }
+}
 int main(){
 
     sn* start = NULL;
@@ -69,9 +83,7 @@ int main(){
     start = create(start);
     display(start);
 
-    printf("\n");
-    start = reverse(start);
-    display(start);
+    reverseDisplay(start);
 
     return 0;
 }
