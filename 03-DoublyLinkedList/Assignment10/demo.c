@@ -1,4 +1,4 @@
-/*write a c program to Create a doubly linked list and Insert the Node at given position.*/
+/*write a c program to Delete duplicate values(nodes) in doubly linked list.*/
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -39,37 +39,34 @@ node* insert_end(node* head,int data)
 
     return head;
 }
-node* insert_at_position(node* head, int data ,int pos){
+node* removeDuplicates(node* head){
 
-    node* new = (node*)malloc(sizeof(node));
+    node* temp = NULL;
 
-    new->data = data;
-    new->prev = NULL;
-    new->next = NULL;
-
-    if(pos == 1){
-
-        new->next = head;
-        head->prev = new;
-
-        return new;
+    if(head == NULL){
+        printf("List is empty");
+        return NULL;
     }
-    node* p = head;
-    for(int i = 1; i < pos - 1 && p != NULL; i++, p = p->next);
+    for(node* p = head; p != NULL; p = p->next){
 
-    if(p == NULL){
+        for(node* q = p->next; q != NULL;    ){
 
-        printf("invalid position ");
-        return head;
+            if(p->data == q->data){
+
+                temp = q;
+
+                q->prev->next = q->next;
+                if(q->next != NULL){
+                    q->next->prev = q->prev;
+                }
+                q = q->next;
+                free(temp);
+
+            }else{
+                q = q->next;
+            }
+        }
     }
-    new->next = p->next;
-    if(p->next != NULL){
-
-        p->next->prev = new;
-    }
-    p->next = new;
-    new->prev = p;
-
     return head;
 }
 void display(node* head){
@@ -96,13 +93,20 @@ void destroy(node* head){
 int main(){
 
     node* start = create(10);
+    start = insert_end(start,10);
+    start = insert_end(start,10);
+    start = insert_end(start,30);
+    start = insert_end(start,50);
+    start = insert_end(start,40);
+    start = insert_end(start,30);
     start = insert_end(start,20);
     start = insert_end(start,30);
-    start = insert_end(start,40);
     start = insert_end(start,50);
+    start = insert_end(start,10);
+    start = insert_end(start,40);
 
-    start = insert_at_position(start, 80, 4);
-
+    start = removeDuplicates(start);
+    
     display(start);
     destroy(start);
 

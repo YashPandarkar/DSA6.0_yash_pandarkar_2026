@@ -1,4 +1,4 @@
-/*write a c program to Create a doubly linked list and Insert the Node at given position.*/
+/*write a c program to Find middle node in doubly linked list.*/
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -39,38 +39,12 @@ node* insert_end(node* head,int data)
 
     return head;
 }
-node* insert_at_position(node* head, int data ,int pos){
+void middleNode(node* head){
 
-    node* new = (node*)malloc(sizeof(node));
+    node* p = head, *q = head;
+    for(    ; q != NULL && q->next != NULL; p = p->next, q = q->next->next);
 
-    new->data = data;
-    new->prev = NULL;
-    new->next = NULL;
-
-    if(pos == 1){
-
-        new->next = head;
-        head->prev = new;
-
-        return new;
-    }
-    node* p = head;
-    for(int i = 1; i < pos - 1 && p != NULL; i++, p = p->next);
-
-    if(p == NULL){
-
-        printf("invalid position ");
-        return head;
-    }
-    new->next = p->next;
-    if(p->next != NULL){
-
-        p->next->prev = new;
-    }
-    p->next = new;
-    new->prev = p;
-
-    return head;
+    printf("\nMiddle node data : %d ",p->data);
 }
 void display(node* head){
 
@@ -101,9 +75,9 @@ int main(){
     start = insert_end(start,40);
     start = insert_end(start,50);
 
-    start = insert_at_position(start, 80, 4);
-
     display(start);
+    middleNode(start);
+
     destroy(start);
 
     return 0;

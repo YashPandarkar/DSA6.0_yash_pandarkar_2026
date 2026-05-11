@@ -1,4 +1,4 @@
-/*write a c program to Create a doubly linked list and Insert the Node at given position.*/
+/*write a c program to sort the doubly linked list.*/
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -39,41 +39,24 @@ node* insert_end(node* head,int data)
 
     return head;
 }
-node* insert_at_position(node* head, int data ,int pos){
+node* sort(node* head){
 
-    node* new = (node*)malloc(sizeof(node));
+    int temp;
 
-    new->data = data;
-    new->prev = NULL;
-    new->next = NULL;
+    for(node* p = head; p->next != NULL; p = p->next){
+        for(node* q = p->next; q != NULL; q = q->next){
 
-    if(pos == 1){
+            if(p->data > q->data){
 
-        new->next = head;
-        head->prev = new;
-
-        return new;
+                temp = p->data;
+                p->data = q->data;
+                q->data = temp;
+            }
+        }
     }
-    node* p = head;
-    for(int i = 1; i < pos - 1 && p != NULL; i++, p = p->next);
-
-    if(p == NULL){
-
-        printf("invalid position ");
-        return head;
-    }
-    new->next = p->next;
-    if(p->next != NULL){
-
-        p->next->prev = new;
-    }
-    p->next = new;
-    new->prev = p;
-
     return head;
 }
 void display(node* head){
-
 
     printf("\n============display linked list===========\n\n");
     printf("[START]<-->");
@@ -96,14 +79,21 @@ void destroy(node* head){
 int main(){
 
     node* start = create(10);
+    start = insert_end(start,70);
+    start = insert_end(start,30);
+    start = insert_end(start,50);
+    start = insert_end(start,40);
+    start = insert_end(start,80);
     start = insert_end(start,20);
     start = insert_end(start,30);
-    start = insert_end(start,40);
-    start = insert_end(start,50);
-
-    start = insert_at_position(start, 80, 4);
+    start = insert_end(start,60);
+    start = insert_end(start,10);
 
     display(start);
+    
+    start = sort(start);
+    display(start);
+
     destroy(start);
 
     return 0;

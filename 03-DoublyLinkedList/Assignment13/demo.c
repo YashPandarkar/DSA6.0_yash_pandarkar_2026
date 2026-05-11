@@ -1,4 +1,4 @@
-/*write a c program to Create a doubly linked list and Insert the Node at given position.*/
+/*write a c program to Create a doubly linked list and Sort the doubly linked list while creation.*/
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -18,28 +18,7 @@ node* create(int data){
 
     return new;
 }
-node* insert_end(node* head,int data)
-{
-    node* newNode = (node*)malloc(sizeof(node));
-    newNode->data = data;
-    newNode->next = NULL;
-    newNode->prev = NULL;
-
-    if (head == NULL) {
-        return newNode;
-    }
-
-    node* temp = head;
-    while (temp->next != NULL) {
-        temp = temp->next;
-    }
-
-    temp->next = newNode;
-    newNode->prev = temp;
-
-    return head;
-}
-node* insert_at_position(node* head, int data ,int pos){
+node* insert_node(node* head, int data){
 
     node* new = (node*)malloc(sizeof(node));
 
@@ -47,33 +26,33 @@ node* insert_at_position(node* head, int data ,int pos){
     new->prev = NULL;
     new->next = NULL;
 
-    if(pos == 1){
-
-        new->next = head;
-        head->prev = new;
-
+    if(head == NULL){
         return new;
     }
-    node* p = head;
-    for(int i = 1; i < pos - 1 && p != NULL; i++, p = p->next);
+    if(head->next == NULL){
 
-    if(p == NULL){
+        if(head->data >= data){
 
-        printf("invalid position ");
-        return head;
+            new->next = head;
+            head->prev = new;
+
+            return new;
+        }
     }
+    node* p = head;
+    for(    ; p->next != NULL && p->next->data < data; p = p->next);
+    
     new->next = p->next;
+    new->prev = p;
+    
     if(p->next != NULL){
-
         p->next->prev = new;
     }
     p->next = new;
-    new->prev = p;
 
     return head;
 }
 void display(node* head){
-
 
     printf("\n============display linked list===========\n\n");
     printf("[START]<-->");
@@ -96,15 +75,17 @@ void destroy(node* head){
 int main(){
 
     node* start = create(10);
-    start = insert_end(start,20);
-    start = insert_end(start,30);
-    start = insert_end(start,40);
-    start = insert_end(start,50);
-
-    start = insert_at_position(start, 80, 4);
+    start = insert_node(start,70);
+    start = insert_node(start,30);
+    start = insert_node(start,50);
+    start = insert_node(start,40);
+    start = insert_node(start,80);
+    start = insert_node(start,20);
+    start = insert_node(start,30);
+    start = insert_node(start,60);
+    start = insert_node(start,10);
 
     display(start);
-    destroy(start);
-
+    
     return 0;
 }

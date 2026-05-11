@@ -91,7 +91,7 @@ sn* delete_at_position(sn* head,int pos){
 
         p = p->next;
     }
-    if(p == NULL && p->next == NULL){
+    if(p == NULL || p->next == NULL){
         printf("invalid input");
         return head;
     }
