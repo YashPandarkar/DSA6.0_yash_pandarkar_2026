@@ -1,0 +1,1 @@
+/*write a c program to Detect cycle in doubly linked list.*/
